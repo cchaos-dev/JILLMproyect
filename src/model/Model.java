@@ -12,7 +12,7 @@ public class Model {
     //Atributes
     
     private ILLM currentILLM; //ILLM
-    private IRepository managerIO; //IO files
+    private ILLMRepository managerIO; //IO files
     
     private Conversation currentConversation; //Data Base with the conversations
     
@@ -22,7 +22,7 @@ public class Model {
     
     //Constructor
     
-    public Model (ILLM illm, IRepository rep){
+    public Model (ILLM illm, ILLMRepository rep){
         currentILLM = illm;
         managerIO = rep;
         
@@ -68,7 +68,7 @@ public class Model {
     
     public void setConversation(String header){
         
-        currentConversation = managerIO.importConversation(header);
+        currentConversation = managerIO.getConversation(header);
         setILLM(currentConversation.getIdentifierLLM());
         
     }

@@ -10,8 +10,7 @@ import java.io.IOException;
 
 import java.io.ObjectOutputStream;
 import java.io.ObjectInputStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 /**
  *
@@ -35,7 +34,6 @@ public class IOSerializableUserBotData {
                 
             } catch (ClassNotFoundException ex) {
                 
-                Logger.getLogger(IOSerializableUserBotData.class.getName()).log(Level.SEVERE, null, ex);
                 o.close();
                 return null;
             }

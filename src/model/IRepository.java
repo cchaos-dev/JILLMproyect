@@ -1,7 +1,7 @@
 
 package model;
 
-import java.util.List;
+import java.util.HashMap;
 
 /**
  *
@@ -10,12 +10,8 @@ import java.util.List;
 
 public interface IRepository {
     
-    public void deleteConversation(String header);
+    public HashMap<String, Conversation> importConversations();
     
-    public List<String> getHeadersConversations();
-    
-    public Conversation importConversation(String headerConversation);
-    
-    public void exportConversations(Conversation conversation);
+    public void exportConversations(HashMap<String, Conversation> conversations);
     
 }

@@ -20,7 +20,7 @@ import com.google.gson.reflect.TypeToken;
  *
  * @author felixplajamarcos
  */
-public class ILLMRepository implements IRepository{
+public class ILLMRepository {
     
     
     //Atributes
@@ -43,7 +43,7 @@ public class ILLMRepository implements IRepository{
     
     //Methods
     
-    @Override
+
     public void deleteConversation(String header){
         
         messageHistory.remove(header);
@@ -74,7 +74,7 @@ public class ILLMRepository implements IRepository{
     }
     
     
-    @Override
+
     public List<String> getHeadersConversations(){ 
 
         //It will return all the chat headers
@@ -90,8 +90,8 @@ public class ILLMRepository implements IRepository{
     }
     
 
-    @Override
-    public Conversation importConversation(String headerConversation) {
+
+    public Conversation getConversation(String headerConversation) {
         
         //Returns the chat based on the header given
         
@@ -101,7 +101,7 @@ public class ILLMRepository implements IRepository{
 
     
     
-    @Override
+
     public void exportConversations(Conversation conversation) {
         
         //It will add the new conversation
