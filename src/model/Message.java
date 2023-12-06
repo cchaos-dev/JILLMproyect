@@ -7,7 +7,8 @@ package model;
  */
 
 import java.io.Serializable;
-import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Message implements Serializable{
     
@@ -17,7 +18,7 @@ public class Message implements Serializable{
     
     private String content = new String();
     
-    private long time;
+    private String time;
     
     
     //Constructor
@@ -27,7 +28,11 @@ public class Message implements Serializable{
         this.sender = sender;
         this.content = content;
         
-        time = Instant.EPOCH.getEpochSecond();
+        LocalDateTime actualTime = LocalDateTime. now();
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yy/MM/dd HH:mm:ss");
+        String finalDate = actualTime.format (format);
+        
+        time = finalDate;
     }
 
     
@@ -42,7 +47,7 @@ public class Message implements Serializable{
         return content;
     }
 
-    public long getTime() {
+    public String getTime() {
         return time;
     }
     

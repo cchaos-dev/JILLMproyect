@@ -3,10 +3,12 @@ package view;
 
 import static com.coti.tools.Esdia.*;
 
-import java.time.Instant;
+import java.time.format.DateTimeFormatter;
+
 import java.util.List;
 
 import controller.Controller;
+import java.time.LocalDateTime;
 import model.*;
 
 
@@ -168,7 +170,11 @@ public class ConsoleInterface extends AplicationView {
         
         controller.newConversation();
         
-        System.out.printf("Conversación del %d\n", Instant.EPOCH.getEpochSecond());
+        LocalDateTime actualTime = LocalDateTime. now();
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yy/MM/dd HH:mm:ss");
+        String finalDate = actualTime.format (format);
+        
+        System.out.printf("Conversación del %s\n\n", finalDate);
         chatInterface();
         
         controller.exportConversation();
@@ -185,7 +191,7 @@ public class ConsoleInterface extends AplicationView {
         
         Conversation conversation = controller.getConversation(header);
         
-        System.out.printf("Conversación del %d\n", conversation.getEndTime());
+        System.out.printf("Conversación del %s\n\n", conversation.getEndTime());
         
         List<Message> messages = conversation.getMessages();
         
@@ -246,7 +252,11 @@ public class ConsoleInterface extends AplicationView {
        
         
         do{
-            outputMessage = userName + " ["+Instant.EPOCH.getEpochSecond()+"]: ";
+            LocalDateTime actualTime = LocalDateTime. now();
+            DateTimeFormatter format = DateTimeFormatter.ofPattern("yy/MM/dd HH:mm:ss");
+            String finalDate = actualTime.format (format);
+            
+            outputMessage = userName + " ["+finalDate+"]: ";
             messageUser = readString(outputMessage);
             
             
@@ -254,7 +264,7 @@ public class ConsoleInterface extends AplicationView {
                 
                 replyBot = controller.getReply(messageUser);
 
-                System.out.printf("%s [%d]: %s\n",botName,Instant.EPOCH.getEpochSecond(), replyBot);
+                System.out.printf("%s [%s]: %s\n",botName,finalDate, replyBot);
                 
             }
             

@@ -9,7 +9,8 @@ package model;
 
 import java.io.Serializable;
 import java.util.List;
-import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 
@@ -22,16 +23,20 @@ public class Conversation implements Serializable{
     
     List <Message> messages;
     
-    private long startTime;
-    private long endTime;
+    private String startTime;
+    private String endTime;
     
     
     //Constructor
     
     public Conversation(String identifier){
         
+        LocalDateTime actualTime = LocalDateTime. now();
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yy/MM/dd HH:mm:ss");
+        String finalDate = actualTime.format (format);
+        
         this.identifierLLM = identifier;
-        startTime = Instant.EPOCH.getEpochSecond();
+        startTime = finalDate;
         endTime = startTime;
         
         messages = new ArrayList<>();
@@ -48,7 +53,7 @@ public class Conversation implements Serializable{
     
     public String getHeader(){
         
-        return String.format("%d | %d | %-20s",startTime, messages.size(), messages.get(0).getContent());
+        return String.format("%s | %d | %-20s",startTime, messages.size(), messages.get(0).getContent());
         
     }
     
@@ -64,17 +69,17 @@ public class Conversation implements Serializable{
         return messages;
     }
 
-    public long getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public long getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
     
     
 
-    public void setEndTime(long endTime) {
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 

@@ -4,6 +4,7 @@ package model;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -61,6 +62,24 @@ public class dataBaseConversations {
     //Adding conversations
     
     public void addConversation(Conversation conversation){
+        
+        
+        //Checking if the user is working in an old conversation
+        
+        String[] conversationChunks = conversation.getHeader().split(Pattern.quote("|"));
+        String[] historyChunks;
+        
+        for (String header : messageHistory.keySet()){
+            
+            historyChunks = messageHistory.get(header).getHeader().split(Pattern.quote("|"));
+            
+            if (conversationChunks[0].equals( historyChunks[0] ) ){
+                
+                messageHistory.put(header, conversation);
+                return;
+                
+            } 
+        }
         
         messageHistory.put(conversation.getHeader(), conversation);
     }
