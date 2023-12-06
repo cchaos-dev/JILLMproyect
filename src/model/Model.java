@@ -12,7 +12,8 @@ public class Model {
     //Atributes
     
     private ILLM currentILLM; //ILLM
-    private ILLMRepository managerIO; //IO files
+    
+    private final dataBaseConversations dataBase = new dataBaseConversations(); //dataBase with all conversations
     
     private Conversation currentConversation; //Data Base with the conversations
     
@@ -22,9 +23,8 @@ public class Model {
     
     //Constructor
     
-    public Model (ILLM illm, ILLMRepository rep){
+    public Model (ILLM illm){
         currentILLM = illm;
-        managerIO = rep;
         
         currentConversation = new Conversation(currentILLM.getIdentifier());
         
@@ -35,17 +35,24 @@ public class Model {
     
     //Methods
     
+    //Create a new conversation
+    
     public void resetConversation(){
         
         currentConversation = new Conversation(currentILLM.getIdentifier());
     }
     
     
-    public void addMessage(String sender, String content){
+    //Adding messages to the current conversation
+    
+    private void addMessage(String sender, String content){
         
         currentConversation.addMessage(new Message(sender,content));
         
     }
+    
+    
+    //Getting the bot reply (it will automatically add the conversation)
     
     public String getReply(String content){
         
@@ -60,29 +67,55 @@ public class Model {
     }
     
     
+    //Getting all the conversations headers
+    
     public List<String> getHeaders(){
         
-        return managerIO.getHeadersConversations();
+        return dataBase.getHeadersConversations();
     }
     
     
+    //Setting current conversation to one in the dataBase by it's header
+    
     public void setConversation(String header){
         
-        currentConversation = managerIO.getConversation(header);
+        currentConversation = dataBase.getConversation(header);
         setILLM(currentConversation.getIdentifierLLM());
         
     }
     
     
+    
+    
+    //Exporting Conversations
+    
+    
     public void exportConversation(){
         
-        managerIO.exportConversations(currentConversation);   
+        dataBase.addConversation(currentConversation);
+        
+        dataBase.exportSerializable();   
     }
+    
     
     public void refreshConversationsSaved(){
-        managerIO.exportConversations(null);  
+        
+        //It will export again all the conversations without adding any new one
+        
+        dataBase.exportSerializable();  
     }
     
+    
+    //Importing Conversations
+    
+    public void importConversations(){
+        
+        dataBase.importSerializable();
+    }
+    
+    
+    
+    //Setting current ILLM based on the identifier
     
     public void setILLM(String identifier){
         
@@ -99,10 +132,17 @@ public class Model {
     }
     
     
+    //Deleting Conversation
+    
     public void deleteConversation(String header){
         
-        managerIO.deleteConversation(header);
+        dataBase.deleteConversation(header);
     }
+    
+    
+    
+    
+    
     
     
     //Getters and Setters

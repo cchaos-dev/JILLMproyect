@@ -78,13 +78,33 @@ public class dataBaseConversations {
     
     public void importJSON(){
         
-        messageHistory = jsonIO.importConversations();
+        //Importing all the conversations
+        
+        HashMap<String, Conversation> importedConversations = jsonIO.importConversations();
+        
+        
+        //Adding only the new conversations
+        
+        for (String header : importedConversations.keySet())
+            if( ! messageHistory.containsKey(header) )
+                messageHistory.put(header, importedConversations.get(header));
+        
     }
     
     
     public void importXML(){
         
-        messageHistory = xmlIO.importConversations();
+        //Importing all the conversations
+        
+        HashMap<String, Conversation> importedConversations = xmlIO.importConversations();
+        
+        
+        //Adding only the new conversations
+        
+        for (String header : importedConversations.keySet())
+            if( ! messageHistory.containsKey(header) )
+                messageHistory.put(header, importedConversations.get(header));
+        
     }
     
     

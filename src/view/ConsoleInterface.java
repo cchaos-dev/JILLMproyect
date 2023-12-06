@@ -25,6 +25,7 @@ public class ConsoleInterface extends AplicationView {
         System.out.println("Bienvenido!!!!");
         
         
+        
         if (controller.importNames() == -1){
         
             userName = readString("Indica tu nombre: ");
@@ -58,7 +59,7 @@ public class ConsoleInterface extends AplicationView {
                               i) Iniciar nueva conversación
                               m) Mostrar conversaciones ya existentes
                               e) Eliminar una conversación existente
-                              x) Exportar datos a Escritorio
+                              x) Exportar o Importar datos desde Escritorio
                               s) Salir
                               """);
 
@@ -89,7 +90,7 @@ public class ConsoleInterface extends AplicationView {
                 
                 case "x" ->{
                     
-                    
+                    ioDataDesktop();
                     
                 }
                 
@@ -115,7 +116,7 @@ public class ConsoleInterface extends AplicationView {
     
     //Exporting menu
     
-    private void exportAllDataDesktop(){
+    private void ioDataDesktop(){
         
         
         
@@ -178,6 +179,7 @@ public class ConsoleInterface extends AplicationView {
     
     //User Interfaces
     
+    //It prints a conversation
     
     private void printConversation(String header){
         
@@ -194,6 +196,8 @@ public class ConsoleInterface extends AplicationView {
         
     }
     
+    
+    //It shows the chat History and returns the one you chose
     
     private String showChatHistory(){
         
@@ -229,6 +233,7 @@ public class ConsoleInterface extends AplicationView {
     
     
     
+    //It shows the chat interface and let you interactuate with the bot
     
     private void chatInterface(){
         
@@ -255,6 +260,8 @@ public class ConsoleInterface extends AplicationView {
         
     }
     
+    
+    //Just for screen format
     
     private void bigScreenSeparator(){
         System.out.printf("\n\n\n\n");

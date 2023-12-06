@@ -15,7 +15,7 @@ public class Controller {
     
     private UserBotData names;
     
-    private Model model = new Model(new FakeILLM(), new ILLMRepository());
+    private Model model = new Model(new FakeILLM());
     
     private IOSerializableUserBotData namesSerializable = new IOSerializableUserBotData();
     
