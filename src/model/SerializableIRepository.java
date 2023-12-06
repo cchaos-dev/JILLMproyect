@@ -30,13 +30,13 @@ public class SerializableIRepository implements IRepository{
             } catch (ClassNotFoundException ex) {
                 
                 o.close();
-                return null;
+                return new HashMap<>();
             }
  
             
         }catch(IOException e){
             
-            return null;
+            return new HashMap<>();
         } 
      
     }

@@ -6,9 +6,10 @@ package model;
  * @author felixplajamarcos
  */
 
+import java.io.Serializable;
 import java.time.Instant;
 
-public class Message {
+public class Message implements Serializable{
     
     //Atributes
     

@@ -7,13 +7,14 @@ package model;
  * @author felixplajamarcos
  */
 
+import java.io.Serializable;
 import java.util.List;
 import java.time.Instant;
 import java.util.ArrayList;
 
 
 
-public class Conversation {
+public class Conversation implements Serializable{
     
     //Atributes
     

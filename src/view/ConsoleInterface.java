@@ -24,7 +24,7 @@ public class ConsoleInterface extends AplicationView {
         
         System.out.println("Bienvenido!!!!");
         
-        
+        controller.importAllConversations();
         
         if (controller.importNames() == -1){
         
@@ -166,7 +166,7 @@ public class ConsoleInterface extends AplicationView {
     
     public void newChat(){
         
-        controller.resetConversation();
+        controller.newConversation();
         
         System.out.printf("Conversación del %d\n", Instant.EPOCH.getEpochSecond());
         chatInterface();
@@ -200,6 +200,8 @@ public class ConsoleInterface extends AplicationView {
     //It shows the chat History and returns the one you chose
     
     private String showChatHistory(){
+        
+        //controller.importAllConversations();
         
         List<String> headers = controller.getAllHeaders(); // Getting all headers
         int index = 1;

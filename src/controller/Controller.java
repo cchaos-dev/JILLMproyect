@@ -70,6 +70,7 @@ public class Controller {
     }
     
     
+    
     //Getting reply
     
     public String getReply(String message){
@@ -103,10 +104,17 @@ public class Controller {
         model.exportConversation();
     }
     
+    //Importing all conversations
+    
+    public void importAllConversations(){
+        
+        model.importConversations();
+    }
+    
     
     //New conversation
     
-    public void resetConversation(){
+    public void newConversation(){
         
         model.resetConversation();
     }
