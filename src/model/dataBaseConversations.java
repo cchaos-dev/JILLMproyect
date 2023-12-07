@@ -75,7 +75,9 @@ public class dataBaseConversations {
             
             if (conversationChunks[0].equals( historyChunks[0] ) ){
                 
-                messageHistory.put(header, conversation);
+                messageHistory.remove(header);
+                
+                messageHistory.put(conversation.getHeader(), conversation);
                 return;
                 
             } 

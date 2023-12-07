@@ -23,6 +23,8 @@ public class Message implements Serializable{
     
     //Constructor
     
+    public Message(){}
+    
     public Message (String sender, String content){
         
         this.sender = sender;

@@ -28,6 +28,7 @@ public class Conversation implements Serializable{
     
     
     //Constructor
+    public Conversation(){}
     
     public Conversation(String identifier){
         

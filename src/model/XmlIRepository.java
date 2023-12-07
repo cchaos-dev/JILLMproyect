@@ -4,6 +4,9 @@
  */
 package model;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.MapType;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
@@ -15,6 +18,8 @@ import java.util.HashMap;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,38 +32,37 @@ public class XmlIRepository implements IRepository{
     public HashMap<String, Conversation> importConversations() {
         
         
-        HashMap<String, Conversation> conversations = null;
+        HashMap<String, Conversation> conversationsOutput = null;
+        
+        List<Conversation> conversations = new ArrayList<>();
         
         try{
             
             Path ruta = Paths.get(System.getProperty("user.home"),"Desktop","jILLMdata", "conversations.xml");
-                    
             
-            XmlMapper xmlMapper = new XmlMapper(); //Instanciating XML manager
-
-            String xml = new String(Files.readAllBytes(ruta), StandardCharsets.UTF_8); //Reading the XML file
-
-            MapType conversationMapType = TypeFactory.defaultInstance().constructMapType(HashMap.class, String.class, Conversation.class); //Getting the HashMap<String, Conversation> type
+            ObjectMapper objectMapper = new XmlMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false); //Reading the XML file
             
-            conversations = xmlMapper.readValue(xml, conversationMapType); //XML String -> HashMap<String, Conversation>
+            conversations = objectMapper.readValue(ruta.toFile(), new TypeReference<List<Conversation>>() {}); //Reading the XML file
+
+            conversationsOutput = this.arrayListToHashMap(conversations);
             
             
         }catch(IOException e){
             
-            conversations = new HashMap<>();
-            
-            System.err.println("Error"+e.getMessage());
+            conversationsOutput = new HashMap<>();
             
         }finally{
             
-            return conversations;
+            return conversationsOutput;
             
         }
         
     }
 
     @Override
-    public void exportConversations(HashMap<String, Conversation> conversations) {
+    public void exportConversations(HashMap<String, Conversation> conversationsInput) {
+        
+        ArrayList<Conversation> conversations = this.hashMapToArrayList(conversationsInput);
         
         
         try{
@@ -76,6 +80,34 @@ public class XmlIRepository implements IRepository{
         }
 
     }
+    
+    
+    
+    private HashMap<String, Conversation> arrayListToHashMap(List<Conversation> conversations){
+        
+        
+        HashMap<String, Conversation> output = new HashMap<>();
+        
+        for (Conversation conversation : conversations)
+            output.put(conversation.getHeader(), conversation);
+        
+        return output;
+    }
+    
+    
+   
+    private ArrayList<Conversation> hashMapToArrayList(HashMap<String, Conversation> conversations){
+        
+        ArrayList<Conversation> output = new ArrayList<>();
+        
+        for(Conversation conversation: conversations.values())
+            output.add(conversation);
+        
+        return output;
+    }
+    
+    
+    
     
     
     

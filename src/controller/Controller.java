@@ -169,6 +169,11 @@ public class Controller {
         model.exportConversation();
     }
     
+    public void exportAllConversations(){
+        
+        model.refreshConversationsSaved();
+    }
+    
     //Importing all conversations
     
     public void importAllConversations(){

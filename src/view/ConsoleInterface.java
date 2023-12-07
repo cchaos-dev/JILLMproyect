@@ -111,6 +111,8 @@ public class ConsoleInterface extends AplicationView {
     
     @Override
     public void showApplicationEnd(String endInfo) {
+        
+        controller.exportAllConversations();
 
     }
     
