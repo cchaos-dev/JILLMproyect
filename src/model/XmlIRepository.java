@@ -7,8 +7,6 @@ package model;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.type.MapType;
-import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 import java.io.IOException;
@@ -20,7 +18,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  *
@@ -38,7 +35,7 @@ public class XmlIRepository implements IRepository{
         
         try{
             
-            Path ruta = Paths.get(System.getProperty("user.home"),"Desktop","jILLMdata", "conversations.xml");
+            Path ruta = Paths.get(System.getProperty("user.home"),"Desktop","jILLMdata", "input.xml");
             
             ObjectMapper objectMapper = new XmlMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false); //Reading the XML file
             
@@ -66,7 +63,7 @@ public class XmlIRepository implements IRepository{
         
         
         try{
-            Path ruta = Paths.get(System.getProperty("user.home"),"Desktop","jILLMdata", "conversations.xml");
+            Path ruta = Paths.get(System.getProperty("user.home"),"Desktop","jILLMdata", "output.xml");
             
             XmlMapper xmlMapper = new XmlMapper(); //Getting the XML Mapper
 

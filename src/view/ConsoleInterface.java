@@ -186,10 +186,10 @@ public class ConsoleInterface extends AplicationView {
                 
                 case "j" -> {
                     
-                    errMssg = controller.fileChecker("conversations.json");
+                    errMssg = controller.fileChecker("input.json");
                     
                     if (errMssg != 0){
-                        showErrorFile(errMssg, "conversations.json");
+                        showErrorFile(errMssg, "input.json");
                         break;
                     }
 
@@ -202,10 +202,10 @@ public class ConsoleInterface extends AplicationView {
                 
                 case "x" -> {
                     
-                    errMssg = controller.fileChecker("conversations.xml");
+                    errMssg = controller.fileChecker("input.xml");
                     
                     if (errMssg != 0){
-                        showErrorFile(errMssg, "conversations.xml");
+                        showErrorFile(errMssg, "input.xml");
                         break;
                     }
 
@@ -249,10 +249,10 @@ public class ConsoleInterface extends AplicationView {
                 
                 case "j" -> {
                     
-                    errMssg = controller.fileChecker("conversations.json");
+                    errMssg = controller.fileChecker("output.json");
                     
                     if (errMssg == -2){
-                        showErrorFile(errMssg, "conversations.json");
+                        showErrorFile(errMssg, "output.json");
                         break;
                     }
 
@@ -265,10 +265,10 @@ public class ConsoleInterface extends AplicationView {
                 
                 case "x" -> {
                     
-                    errMssg = controller.fileChecker("conversations.xml");
+                    errMssg = controller.fileChecker("output.xml");
                     
                     if (errMssg == -2){
-                        showErrorFile(errMssg, "conversations.xml");
+                        showErrorFile(errMssg, "output.xml");
                         break;
                     }
 
