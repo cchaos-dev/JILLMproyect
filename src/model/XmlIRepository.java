@@ -47,6 +47,8 @@ public class XmlIRepository implements IRepository{
             
             conversations = new HashMap<>();
             
+            System.err.println("Error"+e.getMessage());
+            
         }finally{
             
             return conversations;
