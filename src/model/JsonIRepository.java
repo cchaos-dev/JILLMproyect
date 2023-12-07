@@ -25,7 +25,7 @@ public class JsonIRepository implements IRepository{
         HashMap<String, Conversation> conversation = null;
         
         try{
-            Path ruta = Paths.get(System.getProperty("user.home"),"jILLM", "conversations.json");
+            Path ruta = Paths.get(System.getProperty("user.home"),"Desktop","jILLMdata", "conversations.json");
                     
             File file = ruta.toFile(); 
         
@@ -57,7 +57,7 @@ public class JsonIRepository implements IRepository{
     public void exportConversations(HashMap<String, Conversation> conversations) {
         
         try{
-            Path ruta = Paths.get(System.getProperty("user.home"),"jILLM", "conversations.json");
+            Path ruta = Paths.get(System.getProperty("user.home"),"Desktop","jILLMdata", "conversations.json");
                     
             File file = ruta.toFile(); 
 

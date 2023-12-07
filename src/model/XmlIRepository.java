@@ -15,6 +15,7 @@ import java.util.HashMap;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Map;
 
 /**
  *
@@ -30,7 +31,7 @@ public class XmlIRepository implements IRepository{
         
         try{
             
-            Path ruta = Paths.get(System.getProperty("user.home"),"jILLM", "conversations.xml");
+            Path ruta = Paths.get(System.getProperty("user.home"),"Desktop","jILLMdata", "conversations.xml");
                     
             
             XmlMapper xmlMapper = new XmlMapper(); //Instanciating XML manager
@@ -59,7 +60,7 @@ public class XmlIRepository implements IRepository{
         
         
         try{
-            Path ruta = Paths.get(System.getProperty("user.home"),"jILLM", "conversations.xml");
+            Path ruta = Paths.get(System.getProperty("user.home"),"Desktop","jILLMdata", "conversations.xml");
             
             XmlMapper xmlMapper = new XmlMapper(); //Getting the XML Mapper
 

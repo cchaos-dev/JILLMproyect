@@ -106,11 +106,32 @@ public class Model {
     }
     
     
+    public void exportJSON(){
+        
+        dataBase.exportJSON();
+    }
+    
+    public void exportXML(){
+        
+        dataBase.exportXML();
+    }
+    
+    
     //Importing Conversations
     
     public void importConversations(){
         
         dataBase.importSerializable();
+    }
+    
+    public void importJSON(){
+        
+        dataBase.importJSON();
+    }
+    
+    public void importXML(){
+        
+        dataBase.importXML();
     }
     
     

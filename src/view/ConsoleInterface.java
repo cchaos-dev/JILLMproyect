@@ -116,17 +116,197 @@ public class ConsoleInterface extends AplicationView {
     
     
     
-    //Exporting menu
+    //Exporting/Importing menu
     
     private void ioDataDesktop(){
         
+        String option;
         
         
+        do{
+            
+            System.out.printf("""
+                              i) Importar archivos
+                              e) Exportar archivos
+                              s) Salir
+                              """);
+            
+            option = readString("> Opción: ");
+            
+            
+            switch(option.toLowerCase()){
+                
+                case "i" -> {
+                    
+                    bigScreenSeparator();
+                    importDesktop();
+                    
+                }
+                
+                case "e" -> {
+                    
+                    bigScreenSeparator();
+                    exportDesktop();
+                    
+                }
+                
+                
+            }
+            
+            bigScreenSeparator();
+            
+        }while(! option.equalsIgnoreCase("s"));        
+    }
+    
+    
+    
+    //Exporting and Importing JSON and XML conversations
+    
+    private void importDesktop (){
+        
+        String option;
+        
+        int errMssg = 0;
+        
+        
+        do{
+            
+            System.out.printf("""
+                              j) Importar JSON
+                              x) Importar XML
+                              s) Salir
+                              """);
+            
+            option = readString("> Opción: ");
+            
+            
+            switch(option.toLowerCase()){
+                
+                case "j" -> {
+                    
+                    errMssg = controller.fileChecker("conversations.json");
+                    
+                    if (errMssg != 0){
+                        showErrorFile(errMssg, "conversations.json");
+                        break;
+                    }
+
+                    controller.importJSON();
+                    
+                    System.out.printf("Archivo importado con éxito\n");
+                    readString("Presiona ENTER para continuar...");
+                    
+                }
+                
+                case "x" -> {
+                    
+                    errMssg = controller.fileChecker("conversations.xml");
+                    
+                    if (errMssg != 0){
+                        showErrorFile(errMssg, "conversations.xml");
+                        break;
+                    }
+
+                    controller.importXML();
+                    
+                    System.out.printf("Archivo importado con éxito\n");
+                    readString("Presiona ENTER para continuar...");
+                    
+                }
+                
+                
+            }
+            
+            bigScreenSeparator();
+            
+        }while(! option.equalsIgnoreCase("s"));            
+        
+    }
+    
+    
+    
+    private void exportDesktop (){
+        
+        String option;
+        
+        int errMssg = 0;
+        
+        
+        do{
+            
+            System.out.printf("""
+                              j) Exportar JSON
+                              x) Exportar XML
+                              s) Salir
+                              """);
+            
+            option = readString("> Opción: ");
+            
+            
+            switch(option.toLowerCase()){
+                
+                case "j" -> {
+                    
+                    errMssg = controller.fileChecker("conversations.json");
+                    
+                    if (errMssg == -2){
+                        showErrorFile(errMssg, "conversations.json");
+                        break;
+                    }
+
+                    controller.exportJSON();
+                    
+                    System.out.printf("Archivo exportado con éxito\n");
+                    readString("Presiona ENTER para continuar...");
+                    
+                }
+                
+                case "x" -> {
+                    
+                    errMssg = controller.fileChecker("conversations.xml");
+                    
+                    if (errMssg == -2){
+                        showErrorFile(errMssg, "conversations.xml");
+                        break;
+                    }
+
+                    controller.exportXML();
+                    
+                    System.out.printf("Archivo exportado con éxito\n");
+                    readString("Presiona ENTER para continuar...");
+                    
+                }
+                
+                
+            }
+            
+            bigScreenSeparator();
+            
+        }while(! option.equalsIgnoreCase("s"));      
         
         
     }
     
     
+    
+    //Showing the error message
+    
+    private void showErrorFile (int errNumb, String fileName){
+        
+        switch (errNumb){
+            
+            case -1 ->{
+                System.err.printf("El archivo %s no se encontró\n", fileName);
+                readString("Presiona ENTER para continuar...");
+            }
+            
+            case -2 ->{
+                System.err.printf("La carpeta jILLMdata no se encontró en el escritorio\n");
+                readString("Presiona ENTER para continuar...");
+            }
+            
+        }
+    }
     
     
     
@@ -276,7 +456,7 @@ public class ConsoleInterface extends AplicationView {
     //Just for screen format
     
     private void bigScreenSeparator(){
-        System.out.printf("\n\n\n\n");
+        System.out.printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
     }
     
     
