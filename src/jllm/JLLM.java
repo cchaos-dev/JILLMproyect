@@ -5,6 +5,7 @@ import view.ConsoleInterface;
 import model.Model;
 import controller.Controller;
 
+import model.RandomCSVLLM;
 import model.FakeILLM;
 import model.ILLM;
 
@@ -52,6 +53,10 @@ public class JLLM {
             
             case "FAKE" ->{
                 currentILLM = new FakeILLM();
+            }
+            
+            case "RANDOMCSV" ->{
+                currentILLM = new RandomCSVLLM();
             }
             
             default ->{

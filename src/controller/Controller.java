@@ -170,7 +170,7 @@ public class Controller {
     
     public void newConversation(){
         
-        model.resetConversation();
+        model.newConversation();
     }
     
     

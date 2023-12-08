@@ -13,7 +13,9 @@ public class Model {
     
     //Atributes
     
-    private ILLM currentILLM; //ILLM
+    private ILLM currentILLM; //ILLM that the current conversations uses
+    private ILLM startILLM; //ILLM that the user chooses at the beggining of the program
+    
     private IRepository managerIO;
     
     private final dataBaseConversations dataBase = new dataBaseConversations(); //dataBase with all conversations
@@ -28,6 +30,8 @@ public class Model {
     
     public Model (ILLM illm, IRepository io){
         currentILLM = illm;
+        startILLM = illm;
+        
         managerIO = io;
         
         currentConversation = new Conversation(currentILLM.getIdentifier());
@@ -41,7 +45,9 @@ public class Model {
     
     //Create a new conversation
     
-    public void resetConversation(){
+    public void newConversation(){
+        
+        currentILLM = startILLM;
         
         currentConversation = new Conversation(currentILLM.getIdentifier());
     }
@@ -154,6 +160,10 @@ public class Model {
                 
             }
             
+            case "RandomCSVLLM" ->{
+                
+                currentILLM = new RandomCSVLLM();
+            }
             
         }
     }
