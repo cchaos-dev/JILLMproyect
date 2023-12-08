@@ -37,7 +37,7 @@ public class JLLM {
             
             default ->{
                 
-                System.err.print("El repositorio que se ha introducido en los argumentos no es válido\n");
+                System.out.println("El repositorio que se ha introducido en los argumentos no es válido\n");
                 return;
             }
             
@@ -56,7 +56,7 @@ public class JLLM {
             
             default ->{
                 
-                System.err.print("El ILLM que se ha introducido en los argumentos no es válido\n");
+                System.out.println("El ILLM que se ha introducido en los argumentos no es válido\n");
                 return;
             }
         }
@@ -82,7 +82,7 @@ public class JLLM {
             
             default ->{
                 
-                System.err.print("La interfaz que se ha introducido en los argumentos no es válida\n");
+                System.out.println("La interfaz que se ha introducido en los argumentos no es válida\n");
                 return;
             }
             

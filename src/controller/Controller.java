@@ -83,26 +83,19 @@ public class Controller {
    
     
     
-    //Method that checks if a file exists and it located in the Desktop folder jILLMdata
+    //Method that checks if the folder jILLM exists
     
-    //0 file located, it exists and its in the folder
-    //-1 the folder exists but the file is not there
-    //-2 neither the file nor the folder exists
+    //0 the folder exists
+    //-1 the folder doesn't exists
     
-    public int fileChecker(String fileName){
+    public int folderChecker(){
         
         //Path to the folder
         
-        Path pathFolder = Paths.get(System.getProperty("user.home"), "Desktop", "jILLMdata");
-        
-        Path pathFile = Paths.get(System.getProperty("user.home"), "Desktop", "jILLMdata", fileName);
-        
-        File file = pathFile.toFile();
+        Path pathFolder = Paths.get(System.getProperty("user.home"), "Desktop", "jILLM");
         
         
-        if( ! Files.exists(pathFolder) ) return -2; //The folder does not exist
-        
-        if (! file.exists() || ! file.isFile()) return -1; //The file does not exist or it's a folder
+        if( ! Files.exists(pathFolder) || ! Files.isDirectory(pathFolder) ) return -1; //The folder does not exist
         
         return 0; //All good
         
@@ -112,9 +105,9 @@ public class Controller {
     
     //Importing to Desktop
     
-    public void importDesktop(){
+    public String importDesktop(){
         
-        model.importDesktop();
+        return model.importDesktop();
     }
     
     
@@ -162,14 +155,14 @@ public class Controller {
     
     public void exportAllConversations(){
         
-        model.refreshConversationsSaved();
+        model.exportAllConversations();
     }
     
     //Importing all conversations
     
-    public void importAllConversations(){
+    public String importAllConversations(){
         
-        model.importConversations();
+        return model.importAllConversations();
     }
     
     
@@ -187,7 +180,7 @@ public class Controller {
         
         model.deleteConversation(header);
         
-        model.refreshConversationsSaved(); //It will refresh the conversations that were storaged
+        model.exportAllConversations(); //It will refresh the conversations that were storaged
     }
     
     

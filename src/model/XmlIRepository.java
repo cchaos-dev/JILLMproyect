@@ -26,16 +26,16 @@ import java.util.List;
 public class XmlIRepository implements IRepository{
 
     @Override
-    public HashMap<String, Conversation> importConversations() {
+    public HashMap<String, Conversation> importConversations() throws IOException{
         
         
-        HashMap<String, Conversation> conversationsOutput = null;
+        HashMap<String, Conversation> conversationsOutput;
         
-        List<Conversation> conversations = new ArrayList<>();
+        List<Conversation> conversations;
         
         try{
             
-            Path ruta = Paths.get(System.getProperty("user.home"),"Desktop","jILLMdata", "input.xml");
+            Path ruta = Paths.get(System.getProperty("user.home"),"Desktop","jILLM", "input.xml");
             
             ObjectMapper objectMapper = new XmlMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false); //Reading the XML file
             
@@ -43,14 +43,13 @@ public class XmlIRepository implements IRepository{
 
             conversationsOutput = this.arrayListToHashMap(conversations);
             
+            return conversationsOutput;
+
+            
             
         }catch(IOException e){
             
-            conversationsOutput = new HashMap<>();
-            
-        }finally{
-            
-            return conversationsOutput;
+            throw new IOException("El archivo input.xml no se encontró");
             
         }
         
@@ -63,7 +62,7 @@ public class XmlIRepository implements IRepository{
         
         
         try{
-            Path ruta = Paths.get(System.getProperty("user.home"),"Desktop","jILLMdata", "output.xml");
+            Path ruta = Paths.get(System.getProperty("user.home"),"Desktop","jILLM", "output.xml");
             
             XmlMapper xmlMapper = new XmlMapper(); //Getting the XML Mapper
 

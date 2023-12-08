@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import java.io.IOException;
+
 /**
  *
  * @author felixplajamarcos
@@ -91,34 +93,22 @@ public class dataBaseConversations {
     
     //Importing all
     
-    public void importSerializable(){
+    public String importSerializable(){
         
-        messageHistory = serializableIO.importConversations();
+        try{
+            
+            messageHistory = serializableIO.importConversations();
+            return null;
+        
+        }catch (IOException e){
+            
+            messageHistory = new HashMap<>();
+            return e.getMessage();
+        }
     }
     
     
-    public void importJSON(){
-        
-        //Importing all the conversations
-        
-        HashMap<String, Conversation> importedConversations = jsonIO.importConversations();
-        
-        
-        //Adding only the new conversations
-        
-        for (String header : importedConversations.keySet())
-            if( ! messageHistory.containsKey(header) )
-                messageHistory.put(header, importedConversations.get(header));
-        
-    }
-    
-    
-    public void importXML(){
-        
-        //Importing all the conversations
-        
-        HashMap<String, Conversation> importedConversations = xmlIO.importConversations();
-        
+    public void addNewConversations(HashMap<String, Conversation> importedConversations){
         
         //Adding only the new conversations
         
@@ -136,20 +126,8 @@ public class dataBaseConversations {
         
         serializableIO.exportConversations(messageHistory);
     }
-    
-    
-    public void exportJSON(){
-        
-        jsonIO.exportConversations(messageHistory);
-    }
-    
-    
-    public void exportXML(){
-        
-        xmlIO.exportConversations(messageHistory);
-    }
-    
-    
+  
+      
     
     //Getters and Setters
 

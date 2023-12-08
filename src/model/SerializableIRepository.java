@@ -14,7 +14,7 @@ import java.util.HashMap;
 public class SerializableIRepository implements IRepository{
 
     @Override
-    public HashMap<String, Conversation> importConversations() {
+    public HashMap<String, Conversation> importConversations() throws IOException{
 
         try (ObjectInputStream o = new ObjectInputStream(new FileInputStream("conversations.bin"))){
             
@@ -36,7 +36,7 @@ public class SerializableIRepository implements IRepository{
             
         }catch(IOException e){
             
-            return new HashMap<>();
+            throw new IOException("Es la primera vez que se inicia este programa");
         } 
      
     }

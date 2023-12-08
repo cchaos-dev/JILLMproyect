@@ -20,12 +20,12 @@ import java.nio.file.Paths;
 public class JsonIRepository implements IRepository{
 
     @Override
-    public HashMap<String, Conversation> importConversations() {
+    public HashMap<String, Conversation> importConversations() throws IOException{
         
-        HashMap<String, Conversation> conversation = null;
+        HashMap<String, Conversation> conversation;
         
         try{
-            Path ruta = Paths.get(System.getProperty("user.home"),"Desktop","jILLMdata", "input.json");
+            Path ruta = Paths.get(System.getProperty("user.home"),"Desktop","jILLM", "input.json");
                     
             File file = ruta.toFile(); 
         
@@ -38,15 +38,13 @@ public class JsonIRepository implements IRepository{
             
             conversation = gson.fromJson(json, conversationListType);  //JSON -> GSON -> HashMap<String, List<Conversation>>
             
+            return conversation;
         
         }catch(IOException e){
+                        
+            throw new IOException("El archivo input.json no se encontró");
             
-            conversation = new HashMap<>();
-            
-        }finally{
-            
-            return conversation;
-        } 
+        }
         
     }
 
@@ -57,7 +55,7 @@ public class JsonIRepository implements IRepository{
     public void exportConversations(HashMap<String, Conversation> conversations) {
         
         try{
-            Path ruta = Paths.get(System.getProperty("user.home"),"Desktop","jILLMdata", "output.json");
+            Path ruta = Paths.get(System.getProperty("user.home"),"Desktop","jILLM", "output.json");
                     
             File file = ruta.toFile(); 
 

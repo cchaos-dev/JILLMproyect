@@ -33,7 +33,15 @@ public class ConsoleInterface extends AplicationView {
         
         System.out.println("Bienvenido!!!!");
         
-        controller.importAllConversations();
+        
+        //Importing all serializable conversations
+        
+        String importMessage = controller.importAllConversations();
+        
+        if (importMessage != null) System.out.println(importMessage); //This will tell the user if it's the first time he's using the aplication
+        
+        
+        //Getting or importing User and Bot names
         
         if (controller.importNames() == -1){
         
@@ -50,8 +58,12 @@ public class ConsoleInterface extends AplicationView {
             userName = controller.getUserName();
             botName = controller.getBotName();
             
-            
         }
+        
+        
+        //Format
+        
+        readString("Presiona ENTER para continuar...");
         
         bigScreenSeparator(); //Just for the format (it adds some \n)
     }
@@ -128,6 +140,8 @@ public class ConsoleInterface extends AplicationView {
         
         String option;
         
+        int errNumb;
+        
         
         do{
             
@@ -144,10 +158,29 @@ public class ConsoleInterface extends AplicationView {
                 
                 case "i" -> {
                     
-                    bigScreenSeparator();
-                    controller.importDesktop();
+                    //Format
                     
-                    System.out.printf("Archivo importado con éxito\n");
+                    bigScreenSeparator();
+                    
+                    
+                    //Checking if the folder jILLM exists
+                    
+                    if(controller.folderChecker() != 0){
+                        
+                        System.out.printf("La carpeta jILLM no se encontró en el escritorio\n");
+                        readString("Presiona ENTER para continuar...");
+                        
+                        continue;
+                    }
+                    
+                    
+                    //Checking if the file exists (if it does, it's content will be imported)
+                    
+                    String errMsg = controller.importDesktop();
+                    
+                    if (errMsg != null) System.out.println(errMsg);
+                    else System.out.printf("Archivo importado con éxito\n");
+                    
                     readString("Presiona ENTER para continuar...");
 
                     
@@ -155,10 +188,27 @@ public class ConsoleInterface extends AplicationView {
                 
                 case "e" -> {
                     
+                    //Format
+                    
                     bigScreenSeparator();
+                    
+                    
+                    //Checking if the folder exists
+                    
+                    if(controller.folderChecker() != 0){
+                        
+                        System.out.printf("La carpeta jILLM no se encontró en el escritorio\n");
+                        readString("Presiona ENTER para continuar...");
+                
+                        continue;
+                    }
+                    
+                    
+                    //Exporting the file
+                    
                     controller.exportDesktop();
                     
-                    System.out.printf("Archivo importado con éxito\n");
+                    System.out.printf("Archivo exportado con éxito\n");
                     readString("Presiona ENTER para continuar...");
                     
                     
@@ -172,29 +222,6 @@ public class ConsoleInterface extends AplicationView {
         }while(! option.equalsIgnoreCase("s"));        
     }
 
-    
-    
-    
-    //Showing the error message
-    
-    private void showErrorFile (int errNumb, String fileName){
-        
-        switch (errNumb){
-            
-            case -1 ->{
-                System.err.printf("El archivo %s no se encontró\n", fileName);
-                readString("Presiona ENTER para continuar...");
-            }
-            
-            case -2 ->{
-                System.err.printf("La carpeta jILLMdata no se encontró en el escritorio\n");
-                readString("Presiona ENTER para continuar...");
-            }
-            
-        }
-    }
-    
-    
     
     
     //Deleting, loading and creating chats

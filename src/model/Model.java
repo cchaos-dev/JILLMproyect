@@ -1,6 +1,8 @@
 
 package model;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -100,7 +102,7 @@ public class Model {
     }
     
     
-    public void refreshConversationsSaved(){
+    public void exportAllConversations(){
         
         //It will export again all the conversations without adding any new one
         
@@ -117,14 +119,25 @@ public class Model {
     
     //Importing Conversations
     
-    public void importConversations(){
+    public String importAllConversations(){
         
-        dataBase.importSerializable();
+        
+        return dataBase.importSerializable();
     }
     
-    public void importDesktop(){
+    
+    public String importDesktop(){
         
-        dataBase.setMessageHistory(managerIO.importConversations());
+        try{
+            
+            dataBase.addNewConversations(managerIO.importConversations());
+            
+        }catch(IOException e){
+            
+            return e.getMessage();
+        }
+        
+        return null;
     }
     
     
