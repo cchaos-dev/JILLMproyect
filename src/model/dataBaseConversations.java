@@ -12,13 +12,13 @@ import java.util.regex.Pattern;
  */
 public class dataBaseConversations {
     
-    HashMap<String, Conversation> messageHistory = new HashMap<>();
+    private HashMap<String, Conversation> messageHistory = new HashMap<>();
     //The string will be the header of a conversation: EpochUnixSecondsInicio | Número de mensajes | Primeros 20 caracteres del primer mensaje
     //The List will be the messages sent
     
-    IRepository serializableIO = new SerializableIRepository();
-    IRepository jsonIO = new JsonIRepository();
-    IRepository xmlIO = new XmlIRepository();
+    private IRepository serializableIO = new SerializableIRepository();
+    private IRepository jsonIO = new JsonIRepository();
+    private IRepository xmlIO = new XmlIRepository();
     
     
     
@@ -150,5 +150,15 @@ public class dataBaseConversations {
     }
     
     
+    
+    //Getters and Setters
+
+    public HashMap<String, Conversation> getMessageHistory() {
+        return messageHistory;
+    }
+
+    public void setMessageHistory(HashMap<String, Conversation> messageHistory) {
+        this.messageHistory = messageHistory;
+    }
     
 }

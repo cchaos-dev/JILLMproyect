@@ -14,10 +14,17 @@ import model.*;
 
 public class ConsoleInterface extends AplicationView {
     
-    private final Controller controller = new Controller();
+    private final Controller controller;
     
     private String userName;
     private String botName;
+    
+    
+    public ConsoleInterface(Controller controller){
+        
+        this.controller = controller;
+    }
+    
     
     
     
@@ -102,9 +109,6 @@ public class ConsoleInterface extends AplicationView {
             
         }while(! option.equalsIgnoreCase("s"));
         
-        showApplicationEnd("");
-        //Finalizar
-        
     }
 
     
@@ -141,14 +145,22 @@ public class ConsoleInterface extends AplicationView {
                 case "i" -> {
                     
                     bigScreenSeparator();
-                    importDesktop();
+                    controller.importDesktop();
+                    
+                    System.out.printf("Archivo importado con éxito\n");
+                    readString("Presiona ENTER para continuar...");
+
                     
                 }
                 
                 case "e" -> {
                     
                     bigScreenSeparator();
-                    exportDesktop();
+                    controller.exportDesktop();
+                    
+                    System.out.printf("Archivo importado con éxito\n");
+                    readString("Presiona ENTER para continuar...");
+                    
                     
                 }
                 
@@ -159,135 +171,7 @@ public class ConsoleInterface extends AplicationView {
             
         }while(! option.equalsIgnoreCase("s"));        
     }
-    
-    
-    
-    //Exporting and Importing JSON and XML conversations
-    
-    private void importDesktop (){
-        
-        String option;
-        
-        int errMssg = 0;
-        
-        
-        do{
-            
-            System.out.printf("""
-                              j) Importar JSON
-                              x) Importar XML
-                              s) Salir
-                              """);
-            
-            option = readString("> Opción: ");
-            
-            
-            switch(option.toLowerCase()){
-                
-                case "j" -> {
-                    
-                    errMssg = controller.fileChecker("input.json");
-                    
-                    if (errMssg != 0){
-                        showErrorFile(errMssg, "input.json");
-                        break;
-                    }
 
-                    controller.importJSON();
-                    
-                    System.out.printf("Archivo importado con éxito\n");
-                    readString("Presiona ENTER para continuar...");
-                    
-                }
-                
-                case "x" -> {
-                    
-                    errMssg = controller.fileChecker("input.xml");
-                    
-                    if (errMssg != 0){
-                        showErrorFile(errMssg, "input.xml");
-                        break;
-                    }
-
-                    controller.importXML();
-                    
-                    System.out.printf("Archivo importado con éxito\n");
-                    readString("Presiona ENTER para continuar...");
-                    
-                }
-                
-                
-            }
-            
-            bigScreenSeparator();
-            
-        }while(! option.equalsIgnoreCase("s"));            
-        
-    }
-    
-    
-    
-    private void exportDesktop (){
-        
-        String option;
-        
-        int errMssg = 0;
-        
-        
-        do{
-            
-            System.out.printf("""
-                              j) Exportar JSON
-                              x) Exportar XML
-                              s) Salir
-                              """);
-            
-            option = readString("> Opción: ");
-            
-            
-            switch(option.toLowerCase()){
-                
-                case "j" -> {
-                    
-                    errMssg = controller.fileChecker("output.json");
-                    
-                    if (errMssg == -2){
-                        showErrorFile(errMssg, "output.json");
-                        break;
-                    }
-
-                    controller.exportJSON();
-                    
-                    System.out.printf("Archivo exportado con éxito\n");
-                    readString("Presiona ENTER para continuar...");
-                    
-                }
-                
-                case "x" -> {
-                    
-                    errMssg = controller.fileChecker("output.xml");
-                    
-                    if (errMssg == -2){
-                        showErrorFile(errMssg, "output.xml");
-                        break;
-                    }
-
-                    controller.exportXML();
-                    
-                    System.out.printf("Archivo exportado con éxito\n");
-                    readString("Presiona ENTER para continuar...");
-                    
-                }
-                
-                
-            }
-            
-            bigScreenSeparator();
-            
-        }while(! option.equalsIgnoreCase("s"));      
-        
-        
-    }
     
     
     

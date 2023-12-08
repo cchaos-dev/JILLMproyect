@@ -12,6 +12,7 @@ public class Model {
     //Atributes
     
     private ILLM currentILLM; //ILLM
+    private IRepository managerIO;
     
     private final dataBaseConversations dataBase = new dataBaseConversations(); //dataBase with all conversations
     
@@ -23,8 +24,9 @@ public class Model {
     
     //Constructor
     
-    public Model (ILLM illm){
+    public Model (ILLM illm, IRepository io){
         currentILLM = illm;
+        managerIO = io;
         
         currentConversation = new Conversation(currentILLM.getIdentifier());
         
@@ -106,15 +108,11 @@ public class Model {
     }
     
     
-    public void exportJSON(){
+    public void exportDesktop(){
         
-        dataBase.exportJSON();
+        managerIO.exportConversations(dataBase.getMessageHistory());
     }
     
-    public void exportXML(){
-        
-        dataBase.exportXML();
-    }
     
     
     //Importing Conversations
@@ -124,14 +122,9 @@ public class Model {
         dataBase.importSerializable();
     }
     
-    public void importJSON(){
+    public void importDesktop(){
         
-        dataBase.importJSON();
-    }
-    
-    public void importXML(){
-        
-        dataBase.importXML();
+        dataBase.setMessageHistory(managerIO.importConversations());
     }
     
     

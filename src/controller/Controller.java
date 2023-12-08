@@ -19,9 +19,17 @@ public class Controller {
     
     private UserBotData names;
     
-    private Model model = new Model(new FakeILLM());
+    private Model model;
     
     private IOSerializableUserBotData namesSerializable = new IOSerializableUserBotData();
+    
+    
+    
+    public Controller(Model model){
+        
+        this.model = model;
+    }
+    
     
     
     
@@ -102,37 +110,20 @@ public class Controller {
     
     
     
+    //Importing to Desktop
     
-    
-    //Import through JSON or XML
-    
-    public void importJSON(){
+    public void importDesktop(){
         
-        model.importJSON();
-        
+        model.importDesktop();
     }
     
     
-    public void importXML(){
+    //Exporting to Desktop
+    
+    public void exportDesktop(){
         
-        model.importXML();
+        model.exportDesktop();
     }
-    
-    
-    //Export through JSON or XML
-    
-    public void exportJSON(){
-        
-        model.exportJSON();
-    }
-    
-    public void exportXML(){
-        
-        model.exportXML();
-    }
-    
-    
-    
     
     
     
