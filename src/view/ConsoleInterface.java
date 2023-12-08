@@ -144,6 +144,7 @@ public class ConsoleInterface extends AplicationView {
         
         
         do{
+            bigScreenSeparator();
             
             System.out.printf("""
                               i) Importar archivos
