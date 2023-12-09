@@ -2,7 +2,6 @@
 package model;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -163,6 +162,10 @@ public class Model {
             case "RandomCSVLLM" ->{
                 
                 currentILLM = new RandomCSVLLM();
+            }
+            
+            case "SmartLLM" ->{
+                currentILLM = new SmartLLM();
             }
             
         }

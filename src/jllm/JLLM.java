@@ -13,6 +13,7 @@ import model.ILLM;
 
 import model.IRepository;
 import model.JsonIRepository;
+import model.SmartLLM;
 import model.XmlIRepository;
 import view.AplicationView;
 
@@ -61,6 +62,10 @@ public class JLLM {
             
             case "RANDOMCSV" ->{
                 currentILLM = new RandomCSVLLM();
+            }
+            
+            case "SMART" ->{
+                currentILLM = new SmartLLM();
             }
             
             default ->{

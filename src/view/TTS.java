@@ -66,7 +66,7 @@ public class TTS extends AplicationView{
         
         if (importMessage != null) {
             System.out.println(importMessage); //This will tell the user if it's the first time he's using the aplication
-            speakTTS(importMessage);
+            speakTTS("Bienvenido, "+importMessage);
         } 
         
         
