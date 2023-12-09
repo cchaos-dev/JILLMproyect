@@ -9,10 +9,10 @@ import controller.Controller;
  */
 public abstract class AplicationView {
     
-    Controller controoller;
+    Controller controller;
     
-    abstract void showApplicationStart(String initInfo);
-    abstract void showMainMenu();
-    abstract void showApplicationEnd(String endInfo);
+    public abstract void showApplicationStart(String initInfo);
+    public abstract void showMainMenu();
+    public abstract void showApplicationEnd(String endInfo);
     
 }

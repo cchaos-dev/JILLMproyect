@@ -1,32 +1,52 @@
 
 package view;
 
-import static com.coti.tools.Esdia.*;
-
-import java.time.format.DateTimeFormatter;
-
-import java.util.List;
-
+import static com.coti.tools.Esdia.readInt;
+import static com.coti.tools.Esdia.readString;
 import controller.Controller;
+
 import java.time.LocalDateTime;
-import model.*;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import model.Conversation;
+import model.Message;
 
 
-public class ConsoleInterface extends AplicationView {
+import io.github.jonelo.jAdapterForNativeTTS.engines.SpeechEngine;
+import io.github.jonelo.jAdapterForNativeTTS.engines.SpeechEngineNative;
+import io.github.jonelo.jAdapterForNativeTTS.engines.Voice;
+import io.github.jonelo.jAdapterForNativeTTS.engines.VoicePreferences;
+import io.github.jonelo.jAdapterForNativeTTS.engines.exceptions.SpeechEngineCreationException;
+import java.io.IOException;
+
+
+
+/**
+ *
+ * @author felixplajamarcos
+ */
+public class TTS extends AplicationView{
+    
     
     //Atributes
-
+    
     private final Controller controller;
     
     private String userName;
     private String botName;
     
     
+    private SpeechEngine speechEngine;
+
+    
     //Constructor
     
-    public ConsoleInterface(Controller controller){
+    public TTS(Controller controller){
         
         this.controller = controller;
+        
+        initializeVoice(); //TTS
+        
     }
     
     
@@ -37,13 +57,17 @@ public class ConsoleInterface extends AplicationView {
     public void showApplicationStart(String initInfo) {
         
         System.out.println("Bienvenido!!!!");
-        
+        speakTTS("Bienvenido!!!!");
+     
         
         //Importing all serializable conversations
         
         String importMessage = controller.importAllConversations();
         
-        if (importMessage != null) System.out.println(importMessage); //This will tell the user if it's the first time he's using the aplication
+        if (importMessage != null) {
+            System.out.println(importMessage); //This will tell the user if it's the first time he's using the aplication
+            speakTTS(importMessage);
+        } 
         
         
         //Getting or importing User and Bot names
@@ -51,7 +75,11 @@ public class ConsoleInterface extends AplicationView {
         if (controller.importNames() == -1){
         
             userName = readString("Indica tu nombre: ");
+            speakTTS("Por favor, indica tu nombre: ");
+            
             botName = readString("Indica el nombre del bot: ");
+            speakTTS("Por favor, indica el nombre del bot: ");
+            
 
             controller.setUserName(userName);
             controller.setBotName(botName);
@@ -88,8 +116,17 @@ public class ConsoleInterface extends AplicationView {
                               x) Exportar o Importar datos desde Escritorio
                               s) Salir
                               """);
+            
+            speakTTS("""
+                              i) Iniciar nueva conversación.
+                              m) Mostrar conversaciones ya existentes.
+                              e) Eliminar una conversación existente.
+                              x) Exportar o Importar datos desde Escritorio.
+                              s) Salir.
+                              """);
 
             option = readString("> Opción: "); 
+            speechEngine.stopTalking();
             
             bigScreenSeparator();
             
@@ -103,19 +140,19 @@ public class ConsoleInterface extends AplicationView {
                 }
                 
                 case "m" -> {
-                    
+
                     oldChat();
                     
                 }
                 
                 case "e" -> {
-                    
+
                     deleteChat();
                     
                 }
                 
                 case "x" ->{
-                    
+
                     ioDataDesktop();
                     
                 }
@@ -132,6 +169,8 @@ public class ConsoleInterface extends AplicationView {
     
     @Override
     public void showApplicationEnd(String endInfo) {
+        
+        speechEngine.stopTalking();
         
         controller.exportAllConversations();
 
@@ -157,7 +196,14 @@ public class ConsoleInterface extends AplicationView {
                               s) Salir
                               """);
             
+            speakTTS("""
+                              i) Importar archivos
+                              e) Exportar archivos
+                              s) Salir
+                              """);
+            
             option = readString("> Opción: ");
+            speechEngine.stopTalking();
             
             
             switch(option.toLowerCase()){
@@ -174,6 +220,8 @@ public class ConsoleInterface extends AplicationView {
                     if(controller.folderChecker() != 0){
                         
                         System.out.printf("La carpeta jILLM no se encontró en el escritorio\n");
+                        speakTTS("La carpeta jILLM no se encontró en el escritorio");
+                        
                         readString("Presiona ENTER para continuar...");
                         
                         continue;
@@ -184,8 +232,18 @@ public class ConsoleInterface extends AplicationView {
                     
                     String errMsg = controller.importDesktop();
                     
-                    if (errMsg != null) System.out.println(errMsg);
-                    else System.out.printf("Archivo importado con éxito\n");
+                    if (errMsg != null){
+                        
+                        System.out.println(errMsg);
+                        speakTTS(errMsg);
+                        
+                    }else {
+                        
+                        System.out.printf("Archivo importado con éxito\n");
+                        speakTTS("Archivo importado con éxito");
+                        
+                    }
+                    
                     
                     readString("Presiona ENTER para continuar...");
 
@@ -204,6 +262,8 @@ public class ConsoleInterface extends AplicationView {
                     if(controller.folderChecker() != 0){
                         
                         System.out.printf("La carpeta jILLM no se encontró en el escritorio\n");
+                        speakTTS("La carpeta jILLM no se encontró en el escritorio");
+                        
                         readString("Presiona ENTER para continuar...");
                 
                         continue;
@@ -215,6 +275,8 @@ public class ConsoleInterface extends AplicationView {
                     controller.exportDesktop();
                     
                     System.out.printf("Archivo exportado con éxito\n");
+                    speakTTS("Archivo exportado con éxito");
+                    
                     readString("Presiona ENTER para continuar...");
                     
                     
@@ -311,17 +373,26 @@ public class ConsoleInterface extends AplicationView {
         List<String> headers = controller.getAllHeaders(); // Getting all headers
         int index = 1;
         int option;
+        
+        String textTTS = new String();
      
         
         for(String header : headers){
             System.out.printf("%d. %s\n", index, header);
+            textTTS += String.format("%d. %s\n", index, header);
+            
             index++;
         }
+        
         System.out.printf("0. Salir\n");
+        textTTS+="0. Salir\n";
+        
+        speakTTS(textTTS);
         
         
         do{
             option = readInt("> Opción: ");
+            speechEngine.stopTalking();
             
             if (option <= headers.size() && option != 0){
                 
@@ -362,6 +433,8 @@ public class ConsoleInterface extends AplicationView {
             if (! messageUser.equals("/salir")){
                 
                 replyBot = controller.getReply(messageUser);
+                
+                speakTTS(replyBot);
 
                 System.out.printf("%s [%s]: %s\n",botName,finalDate, replyBot);
                 
@@ -378,5 +451,50 @@ public class ConsoleInterface extends AplicationView {
         System.out.printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
     }
     
+    
+    //TTS
+    
+    private void initializeVoice(){
+        
+        try {
+            speechEngine = SpeechEngineNative.getInstance();
+            //List<Voice> voices = speechEngine.getAvailableVoices();
+            Voice voice = new Voice();
+            
+            voice.setCulture("es_Es");
+            voice.setAge(VoicePreferences.Age.ADULT.name());
+            voice.setGender(VoicePreferences.Gender.MALE.name());
+            voice.setName("Reed (Español (España))");
+            
+
+            speechEngine.setVoice(voice.getName());
+            //speechEngine.say();
+
+            
+        } catch (SpeechEngineCreationException e) {
+            
+            System.out.println("Error crítico al encontrar la voz de Reed "+e.getMessage());
+            readString("Presiona ENTER para continuar");
+            
+            System.exit(0);
+            
+        }
+        
+        
+    }
+    
+    
+    
+    private void speakTTS(String phrase){
+        try{
+            
+            speechEngine.stopTalking();
+            speechEngine.say(phrase);
+            
+        }catch(IOException e){
+
+        }
+    }
+   
     
 }

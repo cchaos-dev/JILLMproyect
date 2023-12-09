@@ -2,6 +2,8 @@
 package jllm;
 
 import view.ConsoleInterface;
+import view.TTS;
+
 import model.Model;
 import controller.Controller;
 
@@ -12,6 +14,8 @@ import model.ILLM;
 import model.IRepository;
 import model.JsonIRepository;
 import model.XmlIRepository;
+import view.AplicationView;
+
 
 /**
  *
@@ -76,13 +80,17 @@ public class JLLM {
         
         //Selecting the view
 
-        ConsoleInterface view; //Instanciating the view
+        AplicationView view; //Instanciating the view
         
         
         switch(args[2].toUpperCase()){
             
             case "CONSOLE" ->{
                 view = new ConsoleInterface(controller);
+            }
+            
+            case "TTS" ->{
+                view = new TTS(controller);
             }
             
             default ->{
