@@ -172,6 +172,8 @@ public class TTS extends AplicationView{
         
         speechEngine.stopTalking();
         
+        speakTTS("Adios!!!");
+        
         controller.exportAllConversations();
 
     }
