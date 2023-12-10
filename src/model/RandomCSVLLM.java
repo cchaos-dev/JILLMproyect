@@ -136,10 +136,9 @@ public class RandomCSVLLM implements ILLM{
                 
                 if(chunks.length != 3) continue; //Not a valid identifier
                 
-                identifiers.add(chunks[0]);
+                if(!identifiers.contains(chunks[0])) identifiers.add(chunks[0]);
                 
             }
-            
             
             
         }catch(IOException e){
