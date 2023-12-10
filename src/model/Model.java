@@ -101,9 +101,12 @@ public class Model {
     
     public void exportConversation(){
         
-        dataBase.addConversation(currentConversation);
+        if(! currentConversation.messages.isEmpty()){
+            
+            dataBase.addConversation(currentConversation);
         
-        dataBase.exportSerializable();   
+            dataBase.exportSerializable();   
+        }
     }
     
     
