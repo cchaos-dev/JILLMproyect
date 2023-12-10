@@ -18,9 +18,7 @@ public class dataBaseConversations {
     //The string will be the header of a conversation: EpochUnixSecondsInicio | Número de mensajes | Primeros 20 caracteres del primer mensaje
     //The List will be the messages sent
     
-    private IRepository serializableIO = new SerializableIRepository();
-    private IRepository jsonIO = new JsonIRepository();
-    private IRepository xmlIO = new XmlIRepository();
+    private final IRepository serializableIO = new SerializableIRepository();
     
     
     

@@ -49,6 +49,7 @@ public class Conversation implements Serializable{
     public void addMessage(Message input){
         
         messages.add(input);
+        endTime = input.getTime();
         
     }
     
@@ -87,11 +88,6 @@ public class Conversation implements Serializable{
     public void setMessages(List<Message> messages) {
         this.messages = messages;
     }
-
-    public void setIdentifierLLM(String identifierLLM) {
-        this.identifierLLM = identifierLLM;
-    }
-    
-    
+        
     
 }

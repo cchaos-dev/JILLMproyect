@@ -60,7 +60,7 @@ public class JLLM {
                 currentILLM = new FakeILLM();
             }
             
-            case "RANDOMCSV" ->{
+            case "CSV" ->{
                 currentILLM = new RandomCSVLLM();
             }
             
@@ -90,11 +90,11 @@ public class JLLM {
         
         switch(args[2].toUpperCase()){
             
-            case "CONSOLE" ->{
+            case "CONSOLA" ->{
                 view = new ConsoleInterface(controller);
             }
             
-            case "TTS" ->{
+            case "VOZ" ->{
                 view = new TTS(controller);
             }
             
