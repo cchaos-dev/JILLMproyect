@@ -21,7 +21,7 @@ public class Conversation implements Serializable{
     
     private String identifierLLM = new String();
     
-    List <Message> messages;
+    private List <Message> messages;
     
     private String startTime;
     private String endTime;

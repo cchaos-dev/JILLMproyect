@@ -101,7 +101,7 @@ public class Model {
     
     public void exportConversation(){
         
-        if(! currentConversation.messages.isEmpty()){
+        if(! currentConversation.getMessages().isEmpty()){
             
             dataBase.addConversation(currentConversation);
         
