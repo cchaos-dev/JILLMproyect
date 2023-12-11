@@ -4,14 +4,9 @@
  */
 package model;
 
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
+
 import java.util.HashMap;
 
-import java.util.List;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 
 /**
@@ -27,7 +22,13 @@ public class FakeILLM implements ILLM{
     
     public FakeILLM(){
         
-        importPhrases(); //When FakeILLM is created, it will imports its phrases
+        //Uploading the phrases
+        replyOptions.put("Hola","Hola :)");
+        replyOptions.put("Hola, ¿cómo estás?","¡Hola! Estoy bien, ¿y tú?");
+        replyOptions.put("Tienes alguna mascota?","No tengo mascotas, ya que no tengo una forma física, pero me encantaría escuchar sobre la tuya.");
+        replyOptions.put("Explícame la teoría de cuerdas","La teoría de cuerdas es un marco teórico en la física que sugiere que las partículas fundamentales son en realidad cuerdas vibrantes.");
+        replyOptions.put("goto()","Viva la mejor instrucción de C!!!");
+        replyOptions.put("café","Viva Java!!!");
         
     }
     
@@ -38,13 +39,10 @@ public class FakeILLM implements ILLM{
     @Override
     public String speak(String input) {
         
-        String reply = replyOptions.get(input);
         
-        if(reply == null || reply.length() == 0){
-            return "No tengo respuesta para eso...";
-        }
+        if (replyOptions.containsKey(input)) return replyOptions.get(input);
+        else return "No tengo respuesta para eso...";
         
-        return reply;
     }
     
 
@@ -52,35 +50,5 @@ public class FakeILLM implements ILLM{
     public String getIdentifier() {
         return "FakeILLM";
     }
-    
-    
-    private void importPhrases(){
-        
-        String[] chunks;
-        
-        try{
-            
-            Path ruta = Paths.get("frasesFILLM.csv");
-            
-            List<String> phrases = Files.readAllLines(ruta, StandardCharsets.UTF_8);
-        
-            
-            for(String phrase : phrases){
-                
-                chunks = phrase.split(";");
-                
-                if (chunks.length == 2){
-                    replyOptions.put(chunks[0], chunks[1]);
-                }
-                
-            }
-        
-        
-        }catch(IOException e){
-            
-            
-        }
-    }
-        
     
 }
